@@ -1,0 +1,25 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+.streamlit/credentials.toml
+.streamlit/secrets.toml
+
+# Identifiable or local-only copies. Do not publish.
+artifacts/clean_analysis_data.csv
+artifacts/final_model_predictions.csv
+artifacts/oof_median_risk_group_assignments.csv
+artifacts/SOURCE_COPIES.json
+artifacts/shap_background.npy
+artifacts/shap_background_raw.npy
+artifacts/shap_background_index.npy
+artifacts/_qa_*
+
+# Local original-project audit
+ORIGINAL_HASH_LOCK.json
+tests/test_original_hashes.py
+prepare_artifacts.py

@@ -1,0 +1,68 @@
+[
+  {
+    "label": "low",
+    "title": "Low-risk example",
+    "features": {
+      "RS": -0.959184982130299,
+      "IHC": 1.82951375121688,
+      "BMI": 27.6394873153752,
+      "Albumin": 39.9,
+      "pTNM": 2.0,
+      "PLT": 375.0,
+      "LDH": 191.0,
+      "Size": 3.0,
+      "Lymphocyte": 1.5,
+      "Hb": 79.0
+    },
+    "expected_risk_raw": 1.1467812496738907,
+    "expected_probability": {
+      "1-year": 0.0035459183474362,
+      "3-year": 0.0383876701336504,
+      "5-year": 0.1027182031488479
+    }
+  },
+  {
+    "label": "median",
+    "title": "Median-risk example",
+    "features": {
+      "RS": 0.885914743027918,
+      "IHC": 1.01971574596031,
+      "BMI": 20.8105587358914,
+      "Albumin": 41.8,
+      "pTNM": 2.0,
+      "PLT": 197.0,
+      "LDH": 351.0,
+      "Size": 2.0,
+      "Lymphocyte": 4.4,
+      "Hb": 149.0
+    },
+    "expected_risk_raw": 26.429035987465653,
+    "expected_probability": {
+      "1-year": 0.0462682259253703,
+      "3-year": 0.4066835425741296,
+      "5-year": 0.7643573281389859
+    }
+  },
+  {
+    "label": "high",
+    "title": "High-risk example",
+    "features": {
+      "RS": 0.119518836643173,
+      "IHC": 0.09972225401235,
+      "BMI": 21.6733500687089,
+      "Albumin": 37.2,
+      "pTNM": 3.0,
+      "PLT": 137.0,
+      "LDH": 428.0,
+      "Size": 3.0,
+      "Lymphocyte": 1.8,
+      "Hb": 159.0
+    },
+    "expected_risk_raw": 71.49442586818286,
+    "expected_probability": {
+      "1-year": 0.9917376683641452,
+      "3-year": 1.0,
+      "5-year": 1.0
+    }
+  }
+]

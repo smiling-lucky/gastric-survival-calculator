@@ -1,0 +1,287 @@
+{
+  "model_name": "ExtraSurvivalTrees",
+  "display_model_name": "ExtraSurvivalTrees",
+  "n_patients": 206,
+  "mean_outer_fold_uno_c_index": 0.7902155298202769,
+  "apparent_full_model_c_index": 0.8955060073937153,
+  "selected_features": [
+    "RS",
+    "IHC",
+    "BMI",
+    "Albumin",
+    "pTNM",
+    "PLT",
+    "LDH",
+    "Size",
+    "Lymphocyte",
+    "Hb"
+  ],
+  "scale_continuous": false,
+  "log1p_features": [
+    "LDH",
+    "Lymphocyte"
+  ],
+  "horizons_days": [
+    365.0,
+    1095.0,
+    1825.0
+  ],
+  "horizon_labels": [
+    "1-year",
+    "3-year",
+    "5-year"
+  ],
+  "calibrator": {
+    "center": 29.086005313442346,
+    "scale": 21.493299398155525,
+    "alpha": 0.0001
+  },
+  "risk_grouping": {
+    "rule": "final_model_risk_raw >= cohort_median",
+    "cohort_risk_raw_median": 26.09812029898042,
+    "cohort_risk_raw_mean": 29.086005313442346,
+    "cohort_risk_raw_std": 21.493299398155525,
+    "oof_z_median_cutoff": -0.14235286778131168,
+    "low_n": 103,
+    "high_n": 103,
+    "note": "Web-app risk groups use the median ExtraSurvivalTrees risk score on the full training cohort. Overlaid KM curves use OOF z-score median grouping. Both splits are 103/103 but the scores differ."
+  },
+  "shap": {
+    "background_n": 50,
+    "seed": 20261720,
+    "max_evals": 101,
+    "algorithm": "permutation"
+  },
+  "feature_meta": [
+    {
+      "internal": "RS",
+      "display": "RS",
+      "label_zh": "Radiomics score (RS)",
+      "unit": "",
+      "kind": "number",
+      "step": 0.0001,
+      "help": "Precomputed CT radiomics score. This app cannot extract RS from raw CT images.",
+      "observed_min": -3.24296042240982,
+      "observed_max": 1.70173304823107,
+      "default": 0.085087275424163,
+      "label": "Radiomics score (RS)"
+    },
+    {
+      "internal": "IHC",
+      "display": "IER5L_Expersion",
+      "label_zh": "IER5L_Expersion",
+      "unit": "",
+      "kind": "number",
+      "step": 0.0001,
+      "help": "IER5L expression.",
+      "observed_min": 0.02558106292534,
+      "observed_max": 1.88097814110604,
+      "default": 0.9744011071405535,
+      "label": "IER5L_Expersion"
+    },
+    {
+      "internal": "BMI",
+      "display": "BMI",
+      "label_zh": "BMI",
+      "unit": "kg/m²",
+      "kind": "number",
+      "step": 0.01,
+      "help": "Body mass index.",
+      "observed_min": 15.789046072144,
+      "observed_max": 28.5664174402945,
+      "default": 21.266658093401652,
+      "label": "BMI"
+    },
+    {
+      "internal": "Albumin",
+      "display": "Albumin",
+      "label_zh": "Albumin",
+      "unit": "g/L",
+      "kind": "number",
+      "step": 0.1,
+      "help": "Preoperative serum albumin.",
+      "observed_min": 17.8,
+      "observed_max": 47.7,
+      "default": 37.0,
+      "label": "Albumin"
+    },
+    {
+      "internal": "pTNM",
+      "display": "pTNM",
+      "label_zh": "pTNM",
+      "unit": "",
+      "kind": "select",
+      "options": [
+        2,
+        3
+      ],
+      "help": "Training data contain only stages 2 and 3. Entered as a numeric value; not one-hot encoded.",
+      "observed_min": 2.0,
+      "observed_max": 3.0,
+      "default": 3.0,
+      "label": "pTNM"
+    },
+    {
+      "internal": "PLT",
+      "display": "PLT",
+      "label_zh": "PLT",
+      "unit": "×10⁹/L",
+      "kind": "number",
+      "step": 1.0,
+      "help": "Preoperative platelet count.",
+      "observed_min": 101.0,
+      "observed_max": 468.0,
+      "default": 214.5,
+      "label": "PLT"
+    },
+    {
+      "internal": "LDH",
+      "display": "LDH",
+      "label_zh": "LDH",
+      "unit": "U/L",
+      "kind": "number",
+      "step": 1.0,
+      "help": "Enter the raw value. The pipeline applies log1p internally.",
+      "observed_min": 88.0,
+      "observed_max": 1455.0,
+      "default": 315.0,
+      "label": "LDH"
+    },
+    {
+      "internal": "Size",
+      "display": "Size",
+      "label_zh": "Tumor size",
+      "unit": "cm",
+      "kind": "number",
+      "step": 0.1,
+      "help": "Maximum tumor diameter.",
+      "observed_min": 1.0,
+      "observed_max": 12.0,
+      "default": 4.0,
+      "label": "Tumor size"
+    },
+    {
+      "internal": "Lymphocyte",
+      "display": "Lymphocyte",
+      "label_zh": "Lymphocyte",
+      "unit": "×10⁹/L",
+      "kind": "number",
+      "step": 0.1,
+      "help": "Enter the raw value. The pipeline applies log1p internally.",
+      "observed_min": 0.5,
+      "observed_max": 43.0,
+      "default": 2.0,
+      "label": "Lymphocyte"
+    },
+    {
+      "internal": "Hb",
+      "display": "Hb",
+      "label_zh": "Hb",
+      "unit": "g/L",
+      "kind": "number",
+      "step": 1.0,
+      "help": "Preoperative hemoglobin.",
+      "observed_min": 0.0,
+      "observed_max": 178.0,
+      "default": 129.0,
+      "label": "Hb"
+    }
+  ],
+  "feature_stats": {
+    "RS": {
+      "min": -3.24296042240982,
+      "max": 1.70173304823107,
+      "median": 0.085087275424163,
+      "p01": -1.538868994537866,
+      "p99": 1.5650123064868322,
+      "missing": 0
+    },
+    "IHC": {
+      "min": 0.02558106292534,
+      "max": 1.88097814110604,
+      "median": 0.9744011071405535,
+      "p01": 0.058945443125308,
+      "p99": 1.8402852317858633,
+      "missing": 0
+    },
+    "BMI": {
+      "min": 15.789046072144,
+      "max": 28.5664174402945,
+      "median": 21.266658093401652,
+      "p01": 16.418623264425086,
+      "p99": 28.024589781923265,
+      "missing": 0
+    },
+    "Albumin": {
+      "min": 17.8,
+      "max": 47.7,
+      "median": 37.0,
+      "p01": 18.4,
+      "p99": 45.77499999999999,
+      "missing": 0
+    },
+    "pTNM": {
+      "min": 2.0,
+      "max": 3.0,
+      "median": 3.0,
+      "p01": 2.0,
+      "p99": 3.0,
+      "missing": 0
+    },
+    "PLT": {
+      "min": 101.0,
+      "max": 468.0,
+      "median": 214.5,
+      "p01": 110.45,
+      "p99": 403.49999999999966,
+      "missing": 0
+    },
+    "LDH": {
+      "min": 88.0,
+      "max": 1455.0,
+      "median": 315.0,
+      "p01": 129.25,
+      "p99": 594.3999999999996,
+      "missing": 0
+    },
+    "Size": {
+      "min": 1.0,
+      "max": 12.0,
+      "median": 4.0,
+      "p01": 1.0,
+      "p99": 10.0,
+      "missing": 0
+    },
+    "Lymphocyte": {
+      "min": 0.5,
+      "max": 43.0,
+      "median": 2.0,
+      "p01": 0.805,
+      "p99": 20.439999999999873,
+      "missing": 0
+    },
+    "Hb": {
+      "min": 0.0,
+      "max": 178.0,
+      "median": 129.0,
+      "p01": 44.25,
+      "p99": 175.69999999999993,
+      "missing": 0
+    }
+  },
+  "display_name_map": {
+    "IHC": "IER5L_Expersion"
+  },
+  "colors": {
+    "low": "#0072B2",
+    "high": "#D55E00",
+    "individual": "#000000"
+  },
+  "parameters": {
+    "max_depth": 13,
+    "max_features": 0.4655087389285948,
+    "min_samples_leaf": 2,
+    "min_samples_split": 5,
+    "n_estimators": 900
+  }
+}

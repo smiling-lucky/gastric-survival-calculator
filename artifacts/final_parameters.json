@@ -1,0 +1,23 @@
+{
+  "model": "ExtraSurvivalTrees",
+  "parameters": {
+    "max_depth": 13,
+    "max_features": 0.4655087389285948,
+    "min_samples_leaf": 2,
+    "min_samples_split": 5,
+    "n_estimators": 900
+  },
+  "aggregation": "numeric median and categorical mode across repeated outer folds",
+  "selected_features": [
+    "RS",
+    "IHC",
+    "BMI",
+    "Albumin",
+    "pTNM",
+    "PLT",
+    "LDH",
+    "Size",
+    "Lymphocyte",
+    "Hb"
+  ]
+}

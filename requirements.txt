@@ -1,0 +1,8 @@
+# Versions match the local development machine. Streamlit Community Cloud installs from this file.
+streamlit==1.59.2
+joblib==1.5.3
+scikit-survival==0.28.0
+scikit-learn==1.9.0
+pandas==2.3.3
+numpy==2.4.6
+matplotlib==3.11.0
