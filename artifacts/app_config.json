@@ -275,7 +275,7 @@
   "colors": {
     "low": "#0072B2",
     "high": "#D55E00",
-    "individual": "#000000"
+    "individual": "#7B2CBF"
   },
   "parameters": {
     "max_depth": 13,
