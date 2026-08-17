@@ -57,7 +57,7 @@ def plot_survival(
             s=32,
         )
         ax.annotate(
-            f"{label}\nS={survival:.2f}",
+            f"{label} S={survival:.2f}",
             (years, survival),
             textcoords="offset points",
             xytext=(6, 8),
