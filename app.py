@@ -92,7 +92,7 @@ with st.expander("Read before use (academic research only)", expanded=True):
         """
     )
 
-left, right = st.columns([0.92, 1.18], gap="large")
+left, right = st.columns(2, gap="large")
 
 with left:
     st.subheader("Patient input")
@@ -129,11 +129,13 @@ with left:
 
 with right:
     st.subheader("Prediction")
-    if not submitted:
+    if submitted:
+        with st.spinner("Computing risk score, calibrated probabilities, and survival curve..."):
+            st.session_state.result = predict_case(collected, bundle)
+    result = st.session_state.get("result")
+    if result is None:
         st.info("Enter the variables on the left, then click Calculate prognosis.")
     else:
-        with st.spinner("Computing risk score, calibrated probabilities, and survival curve..."):
-            result = predict_case(collected, bundle)
         group = result["risk_group"]
         group_class = "risk-high" if group == "High risk" else "risk-low"
         p = result["event_probability"]
@@ -160,19 +162,8 @@ with right:
             column.metric(title, f"{p[label]*100:.1f}%", help="1 − calibrated survival probability")
         st.caption(
             "Event probabilities come from the Cox calibrator and match the final-model prediction table. "
-            "The curve is the native ExtraSurvivalTrees survival function."
+            "The curve below is the native ExtraSurvivalTrees survival function."
         )
-
-        fig = plot_survival(
-            result["survival_curve"],
-            bundle["km"],
-            group,
-            config["colors"],
-            result["event_probability"],
-        )
-        st.pyplot(fig, width="stretch")
-        plt.close(fig)
-
         out_of_range = []
         stats = config["feature_stats"]
         for name, value in collected.items():
@@ -185,6 +176,18 @@ with right:
                 "The following inputs are outside the training range; interpret with caution:\n\n- "
                 + "\n- ".join(out_of_range)
             )
+
+if result is not None:
+    st.subheader("Survival curve")
+    fig = plot_survival(
+        result["survival_curve"],
+        bundle["km"],
+        result["risk_group"],
+        config["colors"],
+        result["event_probability"],
+    )
+    st.pyplot(fig, width="stretch")
+    plt.close(fig)
 
 st.markdown("---")
 st.markdown(
