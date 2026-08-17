@@ -17,7 +17,7 @@ st.set_page_config(
 
 
 @st.cache_resource
-def get_bundle():
+def get_bundle(_cache_version: int = 3):
     return load_bundle()
 
 

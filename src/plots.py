@@ -7,6 +7,8 @@ from matplotlib.figure import Figure
 plt.rcParams["font.sans-serif"] = ["DejaVu Sans", "Arial"]
 plt.rcParams["axes.unicode_minus"] = False
 
+INDIVIDUAL_CURVE_COLOR = "#7B2CBF"
+
 
 def plot_survival(
     curve: pd.DataFrame,
@@ -40,14 +42,20 @@ def plot_survival(
     ax.plot(
         curve["Years"],
         curve["Survival"],
-        color=colors["individual"],
-        linewidth=2.4,
+        color=INDIVIDUAL_CURVE_COLOR,
+        linewidth=2.6,
         label="Individual predicted survival",
     )
     for years, label in [(1.0, "1-year"), (3.0, "3-year"), (5.0, "5-year")]:
         ax.axvline(years, color="#BBBBBB", linestyle=":", linewidth=1)
         survival = 1.0 - float(event_probability[label])
-        ax.scatter([years], [survival], color=colors["individual"], zorder=5, s=28)
+        ax.scatter(
+            [years],
+            [survival],
+            color=INDIVIDUAL_CURVE_COLOR,
+            zorder=5,
+            s=32,
+        )
         ax.annotate(
             f"{label}\nS={survival:.2f}",
             (years, survival),
