@@ -70,6 +70,7 @@ st.markdown(
     .risk-low {color: #0072B2; font-weight: 700;}
     .risk-high {color: #D55E00; font-weight: 700;}
     .small-note {color: #555; font-size: 0.92rem; line-height: 1.5;}
+    div[data-testid="stForm"] [data-testid="stVerticalBlock"] > div {padding-bottom: 0.15rem;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -92,7 +93,7 @@ with st.expander("Read before use (academic research only)", expanded=True):
         """
     )
 
-left, right = st.columns(2, gap="large")
+left, right = st.columns([0.9, 1.1], gap="large")
 
 with left:
     st.subheader("Patient input")
@@ -110,21 +111,19 @@ with left:
             st.rerun()
 
     with st.form("case_form"):
-        columns = st.columns(2)
         collected = {}
-        for index, spec in enumerate(config["feature_meta"]):
-            with columns[index % 2]:
-                if spec["kind"] == "select":
-                    collected[spec["internal"]] = int(
-                        st.selectbox(
-                            field_label(spec),
-                            options=[2, 3],
-                            help=spec["help"],
-                            key=spec["internal"],
-                        )
+        for spec in config["feature_meta"]:
+            if spec["kind"] == "select":
+                collected[spec["internal"]] = int(
+                    st.selectbox(
+                        field_label(spec),
+                        options=[2, 3],
+                        help=spec["help"],
+                        key=spec["internal"],
                     )
-                else:
-                    collected[spec["internal"]] = render_number(spec)
+                )
+            else:
+                collected[spec["internal"]] = render_number(spec)
         submitted = st.form_submit_button("Calculate prognosis", width="stretch")
 
 with right:
@@ -162,8 +161,17 @@ with right:
             column.metric(title, f"{p[label]*100:.1f}%", help="1 − calibrated survival probability")
         st.caption(
             "Event probabilities come from the Cox calibrator and match the final-model prediction table. "
-            "The curve below is the native ExtraSurvivalTrees survival function."
+            "The curve is the native ExtraSurvivalTrees survival function."
         )
+        fig = plot_survival(
+            result["survival_curve"],
+            bundle["km"],
+            result["risk_group"],
+            config["colors"],
+            result["event_probability"],
+        )
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
         out_of_range = []
         stats = config["feature_stats"]
         for name, value in collected.items():
@@ -176,18 +184,6 @@ with right:
                 "The following inputs are outside the training range; interpret with caution:\n\n- "
                 + "\n- ".join(out_of_range)
             )
-
-if result is not None:
-    st.subheader("Survival curve")
-    fig = plot_survival(
-        result["survival_curve"],
-        bundle["km"],
-        result["risk_group"],
-        config["colors"],
-        result["event_probability"],
-    )
-    st.pyplot(fig, width="stretch")
-    plt.close(fig)
 
 st.markdown("---")
 st.markdown(
