@@ -1,12 +1,10 @@
 from __future__ import annotations
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import shap
 from matplotlib.figure import Figure
 
-plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "DejaVu Sans"]
+plt.rcParams["font.sans-serif"] = ["DejaVu Sans", "Arial"]
 plt.rcParams["axes.unicode_minus"] = False
 
 
@@ -66,29 +64,5 @@ def plot_survival(
         title=f"Individual survival vs OOF-grouped KM ({risk_group})",
     )
     ax.legend(frameon=False, loc="lower left")
-    fig.tight_layout()
-    return fig
-
-
-def plot_shap_waterfall(explanation: shap.Explanation) -> Figure:
-    plt.figure(figsize=(9.6, 6.2))
-    shap.plots.waterfall(explanation[0], max_display=10, show=False)
-    fig = plt.gcf()
-    fig.tight_layout()
-    return fig
-
-
-def plot_shap_bar(explanation: shap.Explanation) -> Figure:
-    values = np.asarray(explanation.values[0], dtype=float)
-    names = list(explanation.feature_names)
-    order = np.argsort(np.abs(values))
-    fig, ax = plt.subplots(figsize=(8.2, 5.2))
-    ax.barh(
-        [names[i] for i in order],
-        values[order],
-        color=["#D55E00" if values[i] > 0 else "#0072B2" for i in order],
-    )
-    ax.axvline(0, color="#888888", linewidth=1)
-    ax.set(xlabel="SHAP value (risk contribution)", title="Single-case SHAP contributions")
     fig.tight_layout()
     return fig
