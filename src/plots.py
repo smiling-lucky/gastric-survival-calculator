@@ -46,6 +46,16 @@ def plot_survival(
         linewidth=2.6,
         label="Individual predicted survival",
     )
+    offsets = {
+        1.0: (8, 8),
+        3.0: (8, 8),
+        5.0: (-8, 8),
+    }
+    alignments = {
+        1.0: "left",
+        3.0: "left",
+        5.0: "right",
+    }
     for years, label in [(1.0, "1-year"), (3.0, "3-year"), (5.0, "5-year")]:
         ax.axvline(years, color="#BBBBBB", linestyle=":", linewidth=1)
         survival = 1.0 - float(event_probability[label])
@@ -57,12 +67,15 @@ def plot_survival(
             s=32,
         )
         ax.annotate(
-            f"{label} S={survival:.2f}",
+            f"{label} OS {survival * 100:.0f}%",
             (years, survival),
             textcoords="offset points",
-            xytext=(6, 8),
+            xytext=offsets[years],
+            ha=alignments[years],
+            va="bottom",
             fontsize=8,
             color="#333333",
+            clip_on=True,
         )
     ax.set(
         xlim=(0, 5.05),
