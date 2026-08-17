@@ -70,7 +70,8 @@ st.markdown(
     .risk-low {color: #0072B2; font-weight: 700;}
     .risk-high {color: #D55E00; font-weight: 700;}
     .small-note {color: #555; font-size: 0.92rem; line-height: 1.5;}
-    div[data-testid="stForm"] [data-testid="stVerticalBlock"] > div {padding-bottom: 0.15rem;}
+    div[data-testid="stForm"] [data-testid="stNumberInput"],
+    div[data-testid="stForm"] [data-testid="stSelectbox"] {margin-bottom: 0.85rem;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -112,18 +113,23 @@ with left:
 
     with st.form("case_form"):
         collected = {}
-        for spec in config["feature_meta"]:
-            if spec["kind"] == "select":
-                collected[spec["internal"]] = int(
-                    st.selectbox(
-                        field_label(spec),
-                        options=[2, 3],
-                        help=spec["help"],
-                        key=spec["internal"],
-                    )
-                )
-            else:
-                collected[spec["internal"]] = render_number(spec)
+        specs = config["feature_meta"]
+        for start in range(0, len(specs), 2):
+            columns = st.columns(2, gap="large")
+            for column, spec in zip(columns, specs[start:start + 2]):
+                with column:
+                    if spec["kind"] == "select":
+                        collected[spec["internal"]] = int(
+                            st.selectbox(
+                                field_label(spec),
+                                options=[2, 3],
+                                help=spec["help"],
+                                key=spec["internal"],
+                            )
+                        )
+                    else:
+                        collected[spec["internal"]] = render_number(spec)
+            st.markdown("<div style='height:0.55rem'></div>", unsafe_allow_html=True)
         submitted = st.form_submit_button("Calculate prognosis", width="stretch")
 
 with right:
