@@ -17,7 +17,7 @@ def plot_survival(
     colors: dict[str, str],
     event_probability: dict[str, float],
 ) -> Figure:
-    fig, ax = plt.subplots(figsize=(6.4, 4.2), dpi=200, layout="constrained")
+    fig, ax = plt.subplots(figsize=(6.4, 4.2), dpi=300, layout="constrained")
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
     for group_name, color in (("Low risk", colors["low"]), ("High risk", colors["high"])):
