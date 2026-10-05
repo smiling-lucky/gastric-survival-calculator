@@ -88,8 +88,7 @@ with st.expander("Read before use (academic research only)", expanded=True):
 - This tool is for academic research and methodological demonstration only. **It does not replace clinical decision-making.**
 - **RS must be a precomputed radiomics score.** This app cannot read raw CT images or extract radiomic features.
 - Training data contain **pTNM stages 2 and 3 only**, entered as numeric values (not one-hot encoded).
-- 1-/3-/5-year event probabilities come from a Cox calibrator fit on full-cohort risk scores and are more optimistic than strict out-of-fold estimates.
-- The high/low-risk cutoff is the median ExtraSurvivalTrees risk score in the training cohort. **It is not a clinical guideline cutoff.** Overlay KM curves use OOF z-score median grouping.
+- The high/low-risk cutoff is the median ExtraSurvivalTrees risk score in the training cohort. **It is not a clinical guideline cutoff.**
 - No case data are saved or logged.
         """
     )
