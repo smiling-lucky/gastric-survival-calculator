@@ -175,7 +175,7 @@ with right:
             config["colors"],
             result["event_probability"],
         )
-        st.pyplot(fig, width="stretch")
+        st.pyplot(fig, width=640)
         plt.close(fig)
         out_of_range = []
         stats = config["feature_stats"]
